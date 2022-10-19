@@ -10,7 +10,7 @@ Once the build is complete run ```docker-compose up```
 Run migrations
 ```docker-compose run web python manage.py migrate```
 create a superuser by running 
-```docker-compose run web python manage.py create_super_user```
+```docker-compose run web python manage.py createsuperuser```
 
 generate a token
 generate a token by running 
