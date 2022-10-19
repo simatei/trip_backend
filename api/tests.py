@@ -16,18 +16,21 @@ class TestTrip(TestCase):
         self.client.force_authenticate(user=self.user)
         self.url = reverse("trips")
 
-    def test_trip_logged_in(self):
+    def test_get_trip_logs(self):
+        # Test that we can get a log of the trip
         response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
 
-    # def test_trip_creation(self):
-    #     data = {
-    #         "pick_up": "The Address",
-    #         "drop_off": "Some Other Place",
-    #         "driver_id": 1,
-    #         "customer_id": 3,
-    #         "tonnage": 203,
-    #     }
+    def test_trip_creation(self):
+        # Test that a trip can be created"""
+        data = {
+            "address_type": "pick_up_point",
+            "driver_id": 3,
+            "vehicle_id": 4,
+            "customer_id": 2,
+            "address": "adress",
+            "cargo_tonnage": 100.34,
+        }
 
-    #     response = self.client.post(self.url, data=data)
-    #     self.assertEqual(response.status_code, 201)
+        response = self.client.post(self.url, data=data)
+        self.assertEqual(response.status_code, 201)
