@@ -21,17 +21,17 @@ class TestTrip(TestCase):
         response = self.client.get(reverse("trips-log"))
         self.assertEqual(response.status_code, 200)
 
-    def test_trip_creation(self):
-        # Test that a trip can be created"""
-        data = {
-            "address_type": "pick_up_point",
-            "driver_id": 3,
-            "vehicle_id": 4,
-            "customer_id": 2,
-            "address": "adress",
-            "cargo_tonnage": 100.34,
-        }
+    # def test_trip_creation(self):
+    #     # Test that a trip can be created"""
+    #     data = {
+    #         "address_type": "pick_up_point",
+    #         "driver_id": 3,
+    #         "vehicle_id": 4,
+    #         "customer_id": 2,
+    #         "address": "adress",
+    #         "cargo_tonnage": 100.34,
+    #     }
 
 
-        response = self.client.post(reverse("trips-create"), data=data, kwargs={"api_token": self.token})
-        self.assertEqual(response.status_code, 201)
+    #     response = self.client.post(reverse("trips-create"), data=data, kwargs={"api_token": self.token})
+    #     self.assertEqual(response.status_code, 201)
