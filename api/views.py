@@ -3,10 +3,11 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Trip
 from .serializers import TripSerializer, TripCreationSerializer
+from rest_framework.authtoken.models import Token
 
 
 class TripView(views.APIView):
-    permission_classes = (IsAuthenticated,)
+    # permission_classes = (IsAuthenticated,)
 
     def get(self, request):
         """
@@ -18,7 +19,10 @@ class TripView(views.APIView):
         serializer = TripSerializer(trips_qs, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request):
+    def post(self, request, api_token):
+        if not Token.objects.filter(key=api_token).exists():
+            return Response(status=status.HTTP_401_UNAUTHORIZED)
+
         try:
             data = {
                 "address_type": request.data.get("address_type"),

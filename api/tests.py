@@ -14,11 +14,11 @@ class TestTrip(TestCase):
         )
         self.client = APIClient()
         self.client.force_authenticate(user=self.user)
-        self.url = reverse("trips")
+        self.token = Token.objects.create(user=self.user)
 
     def test_get_trip_logs(self):
         # Test that we can get a log of the trip
-        response = self.client.get(self.url)
+        response = self.client.get(reverse("trips-log"))
         self.assertEqual(response.status_code, 200)
 
     def test_trip_creation(self):
@@ -32,5 +32,6 @@ class TestTrip(TestCase):
             "cargo_tonnage": 100.34,
         }
 
-        response = self.client.post(self.url, data=data)
+
+        response = self.client.post(reverse("trips-create"), data=data, kwargs={"api_token": self.token})
         self.assertEqual(response.status_code, 201)
