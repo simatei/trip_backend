@@ -36,6 +36,22 @@ class TestTrip(TestCase):
             reverse("trips-create", kwargs={"api_token": self.token.key}), data=data
         )
         self.assertEqual(response.status_code, 201)
+        
+    def test_throttling(self):
+        # Test that the throttling works
+        data = {
+            "address_type": "pick_up_point",
+            "driver_id": 3,
+            "vehicle_id": 4,
+            "customer_id": 2,
+            "address": "adress",
+            "cargo_tonnage": 100.34,
+        }
+        for i in range(5):
+            response = self.client.post(
+                reverse("trips-create", kwargs={"api_token": self.token.key}), data=data
+            )
+        self.assertEqual(response.status_code, 429) 
 
 
 
