@@ -114,7 +114,13 @@ REST_FRAMEWORK = {
         "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
-    ]
+    ],
+    "DEFAULT_THROTTLE_CLASSES": [
+        "rest_framework.throttling.AnonRateThrottle",
+        "rest_framework.throttling.UserRateThrottle",
+    ],
+    # set up throttling for the API to 4 request per second
+    "DEFAULT_THROTTLE_RATES": {"anon": "4/second", "user": "4/second"},
 }
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
