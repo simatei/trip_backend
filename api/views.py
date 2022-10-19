@@ -23,6 +23,9 @@ class TripView(views.APIView):
         if not Token.objects.filter(key=api_token).exists():
             return Response(status=status.HTTP_401_UNAUTHORIZED)
 
+        # Get user from token
+        user = Token.objects.get(key=api_token).user
+
         try:
             data = {
                 "address_type": request.data.get("address_type"),
@@ -39,7 +42,7 @@ class TripView(views.APIView):
                     {"error": "Invalid address type"}, status=status.HTTP_400_BAD_REQUEST
                 )
 
-            serializer = TripCreationSerializer(data=data, context={"request": request})
+            serializer = TripCreationSerializer(data=data, context={"user": user})
             if serializer.is_valid():
                 serializer.save()
                 response_data = {

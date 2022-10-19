@@ -21,8 +21,7 @@ class TripCreationSerializer(serializers.Serializer):
     cargo_tonnage = serializers.DecimalField(max_digits=10, decimal_places=2)
 
     def create(self, validated_data):
-        done_by_user_id = self.context["request"].user.id
-        user = User.objects.get(id=done_by_user_id)
+        user = self.context["user"]
         data = {
             "address_type": validated_data.get("address_type"),
             "driver_id": validated_data.get("driver_id"),
