@@ -7,6 +7,8 @@ change directory to repo
 Run ```docker-compose build```
 Once the build is complete run ```docker-compose up```
 
+Run migrations
+```docker-compose run web python manage.py migrate```
 create a superuser by running 
 ```docker-compose run web python manage.py create_super_user```
 
@@ -21,7 +23,6 @@ You can send a curl on the terminal to:
 ```
 curl --request POST \
   --url http://0.0.0.0:8000/api/trips/create/api_token=<your_generated_token>\
-  --header 'Authorization: Basic c2ltYXRlaTpzaW1hdGVp' \
   --header 'Content-Type: application/json' \
   --data '{
 		"address_type": "pick_up_point",
