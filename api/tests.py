@@ -18,7 +18,7 @@ class TestTrip(TestCase):
 
     def test_get_trip_logs(self):
         # Test that we can get a log of the trip
-        response = self.client.get(reverse("trips-log"))
+        response = self.client.get(reverse("trips-logs"))
         self.assertEqual(response.status_code, 200)
 
     # def test_trip_creation(self):
